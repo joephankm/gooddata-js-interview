@@ -1,0 +1,19 @@
+{
+  "grossProfit": "$ Gross Profit",
+  "grossProfitInMonthTitle": "$ Gross Profit in month",
+  "grossProfitAllMonthTitle": "$ Gross Profit - All months",
+  "month": {
+    "jan": "January",
+    "feb": "February",
+    "mar": "March",
+    "apr": "April",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "August",
+    "sep": "September",
+    "oct": "October",
+    "nov": "November",
+    "dec": "December"
+  }
+}

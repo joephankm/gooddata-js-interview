@@ -1,5 +1,6 @@
 import React, { Fragment, useMemo, useState } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import { ColumnChart, Model } from "@gooddata/react-components";
 import moment from "moment";
 
@@ -9,14 +10,10 @@ import MonthSelect from "../selects/MonthSelect";
 // CONSTANTS
 import { CHART_PARAMS, DATE_FORMAT } from "../../constants/chartParams";
 
-const ByMonthColumnChart = ({ year }) => {
-  const [selectedMonth, setSelectedMonth] = useState(1);
+const ByMonthColumnChart = ({ measures, projectId, defaultMonth, year }) => {
+  const { t } = useTranslation();
 
-  const measures = useMemo(() => [
-    Model.measure(CHART_PARAMS.grossProfitMeasure)
-      .localIdentifier("m1")
-      .alias("$ Gross Profit"),
-  ], []);
+  const [selectedMonth, setSelectedMonth] = useState(defaultMonth);
 
   const monthFilters = useMemo(() => {
     const monthMoment = moment(`${year}-${selectedMonth}`, 'YYYY-M');
@@ -32,15 +29,15 @@ const ByMonthColumnChart = ({ year }) => {
   return (
     <Fragment>
       <h1>
-        $ Gross Profit in month{' '}
-        <MonthSelect defaultValue={1} onChange={setSelectedMonth} />{' '}
+        {t("grossProfitInMonthTitle")}{" "}
+        <MonthSelect defaultValue={defaultMonth} onChange={setSelectedMonth} />{" "}
         {year}
       </h1>
       <div>
         <ColumnChart
           measures={measures}
           filters={monthFilters}
-          projectId={CHART_PARAMS.projectId}
+          projectId={projectId}
         />
       </div>
     </Fragment>
@@ -48,7 +45,14 @@ const ByMonthColumnChart = ({ year }) => {
 };
 
 ByMonthColumnChart.propTypes = {
+  measures: PropTypes.arrayOf(PropTypes.object).isRequired,
+  projectId: PropTypes.string.isRequired,
+  defaultMonth: PropTypes.number,
   year: PropTypes.number.isRequired,
+};
+
+ByMonthColumnChart.defaultProps = {
+  defaultMonth: 1,
 };
 
 export default ByMonthColumnChart;

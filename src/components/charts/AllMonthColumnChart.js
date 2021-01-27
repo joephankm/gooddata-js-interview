@@ -1,33 +1,29 @@
-import React, { Fragment, useMemo } from "react";
-import { ColumnChart, Model } from "@gooddata/react-components";
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { ColumnChart } from "@gooddata/react-components";
 
-// CONSTANTS
-import { CHART_PARAMS } from "../../constants/chartParams";
-
-const AllMonthColumnChart = () => {
-  const measures = useMemo(() => [
-    Model.measure(CHART_PARAMS.grossProfitMeasure)
-      .localIdentifier("m1")
-      .alias("$ Gross Profit"),
-  ], []);
-
-  const viewBy = useMemo(
-    () => Model.attribute(CHART_PARAMS.dateAttributeInMonths).localIdentifier("a1"),
-    []
-  );
+const AllMonthColumnChart = ({ measures, projectId, viewBy }) => {
+  const { t } = useTranslation();
 
   return (
     <Fragment>
-      <h1>$ Gross Profit - All months</h1>
+      <h1>{t("grossProfitAllMonthTitle")}</h1>
       <div>
         <ColumnChart
           measures={measures}
           viewBy={viewBy}
-          projectId={CHART_PARAMS.projectId}
+          projectId={projectId}
         />
       </div>
     </Fragment>
   );
+};
+
+AllMonthColumnChart.propTypes = {
+  measures: PropTypes.arrayOf(PropTypes.object).isRequired,
+  projectId: PropTypes.string.isRequired,
+  viewBy: PropTypes.object.isRequired,
 };
 
 export default AllMonthColumnChart;

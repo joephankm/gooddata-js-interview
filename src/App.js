@@ -3,16 +3,20 @@
 import React, { Component } from "react";
 import "@gooddata/react-components/styles/css/main.css";
 
+// COMPONENTS
 import Home from "./pages/home/Home";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Home />
-      </div>
-    );
-  }
+// HOOKS
+import { useConfigI18n } from "./hooks";
+
+function App() {
+  useConfigI18n();
+
+  return (
+    <div className="App">
+      <Home />
+    </div>
+  );
 }
 
 export default App;
